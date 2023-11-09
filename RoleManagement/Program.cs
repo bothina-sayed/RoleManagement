@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using RoleManagement.Infrastructure;
-using RoleManagement.Infrastructure.Context;
 using RoleManagement.Extenstions;
 using RoleManagement.Application;
+using RoleManagement.Infrastructure.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +18,11 @@ sqlServerOptionsAction: options => {
     options.EnableRetryOnFailure();
     options.CommandTimeout(10);
 }));
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(50);
+});
 
 var app = builder.Build();
 
@@ -35,6 +40,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

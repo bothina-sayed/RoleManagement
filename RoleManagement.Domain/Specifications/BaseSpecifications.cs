@@ -11,7 +11,7 @@ namespace RoleManagement.Domain.Specifications
     public abstract class BaseSpecifications<T> where T : class
     {
         public Expression<Func<T, bool>> Criteria { get; private set; }
-        public List<Expression<Func<T, object>>> Includes { get; private set; } = new List<Expression<Func<T, object>>>();
+        public List<string> Includes { get; private set; } = new List<string>();
         public Expression<Func<T, object>>? OrderBy { get; private set; }
         public Expression<Func<T, object>>? OrderByDescending { get; private set; }
         public int Take { get; private set; }
@@ -19,9 +19,9 @@ namespace RoleManagement.Domain.Specifications
         public bool IsPagingEnabled { get; private set; }
         public bool IsTotalCountEnable { get; private set; }
 
-        protected void AddInclude(Expression<Func<T, object>> incldueExpression)
+        protected void AddInclude(List<string> incldueExpression)
         {
-            Includes.Add(incldueExpression);
+            Includes.AddRange(incldueExpression);
         }
 
         protected void AddCriteria(Expression<Func<T, bool>> criteriaExpression)

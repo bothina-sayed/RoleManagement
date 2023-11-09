@@ -1,5 +1,6 @@
 ﻿using RoleManagement.Domain.Abstractions;
 using RoleManagement.Infrastructure;
+using RoleManagement.Infrastructure.Context;
 using System;
 using System.Collections;
 using System.Collections.Generic;
