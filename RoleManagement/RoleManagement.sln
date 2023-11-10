@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoleManagement", "RoleManagement.csproj", "{3AC64028-82A3-48AE-AE93-7338E4029D9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoleManagement", "RoleManagement.csproj", "{3AC64028-82A3-48AE-AE93-7338E4029D9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoleManagement.Domain", "..\RoleManagement.Domain\RoleManagement.Domain.csproj", "{48740FBC-2656-473A-A528-288E03056D44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoleManagement.Domain", "..\RoleManagement.Domain\RoleManagement.Domain.csproj", "{48740FBC-2656-473A-A528-288E03056D44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoleManagement.Application", "..\RoleManagement.Application\RoleManagement.Application.csproj", "{497F1E51-C4BD-459A-B8F8-56186F7F9C78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoleManagement.Application", "..\RoleManagement.Application\RoleManagement.Application.csproj", "{497F1E51-C4BD-459A-B8F8-56186F7F9C78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoleManagement.Infrastructure", "..\RoleManagement.Infrastructure\RoleManagement.Infrastructure.csproj", "{DD924D76-195B-4D68-948F-DEB509B2F5CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoleManagement.Infrastructure", "..\RoleManagement.Infrastructure\RoleManagement.Infrastructure.csproj", "{DD924D76-195B-4D68-948F-DEB509B2F5CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

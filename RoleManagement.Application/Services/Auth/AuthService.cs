@@ -39,6 +39,7 @@ namespace RoleManagement.Application.Services
             _registerValidator = registerValidator;
             _loginValidator = loginValidator;
         }
+
         public async Task<ResponseModel<string>> Register(RegisterViewModel viewModel)
         {
             try
@@ -68,27 +69,29 @@ namespace RoleManagement.Application.Services
 
             return ResponseModel<string>.Error();
         }
-        public async Task<ResponseModel<string>> Login(LoginViewModel viewModel)
+        public async Task<ResponseModel<AuthViewModel>> Login(LoginViewModel viewModel)
         {
             try
             {
                 var validationResult = await _loginValidator.ValidateAsync(viewModel);
 
                 if (!validationResult.IsValid)
-                    return ResponseModel<string>
+                    return ResponseModel<AuthViewModel>
                         .Error(Helpers.ArrangeValidationErrors(validationResult.Errors));
 
                 var user = _UserRepo.GetEntityWithSpec(new GetUserWithRoleSpecification(viewModel.Email));
 
                 if (user.data == null)
-                    return ResponseModel<string>.Error();
+                    return ResponseModel<AuthViewModel>.Error();
 
+                var mappObject = _mapper.Map<AuthViewModel>(user.data);
+                mappObject.Role = user.data.Role.Name;
 
-                return ResponseModel<string>.Success(data: user.data.Role.Name);
+                return ResponseModel<AuthViewModel>.Success(mappObject);
             }
             catch (Exception ex) { _logger.Log(LogLevel.Error, ex.ToString()); }
 
-            return ResponseModel<string>.Error();
+            return ResponseModel<AuthViewModel>.Error();
         }
 
     }

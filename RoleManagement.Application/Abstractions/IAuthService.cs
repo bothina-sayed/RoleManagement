@@ -7,7 +7,7 @@ namespace RoleManagement.Application.Abstractions
 {
     public interface IAuthService
     {
-        Task<ResponseModel<string>> Login(LoginViewModel viewModel, HttpContext httpContent);
+        Task<ResponseModel<AuthViewModel>> Login(LoginViewModel viewModel);
         Task<ResponseModel<string>> Register(RegisterViewModel viewModel);
     }
 }

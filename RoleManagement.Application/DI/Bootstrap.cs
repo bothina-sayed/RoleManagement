@@ -1,11 +1,12 @@
 ﻿using FluentValidation;
-using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RoleManagement.Application.Abstractions;
+using RoleManagement.Application.Services;
+using RoleManagement.Application.Validations;
+using RoleManagement.Application.Validations.Auth;
+using RoleManagement.Domain.ViewModels;
+using RoleManagement.Domain.ViewModels.Auth;
+
 
 namespace RoleManagement.Application
 {
@@ -13,7 +14,14 @@ namespace RoleManagement.Application
     {
         public static IServiceCollection AddApplicationDependencies(this IServiceCollection services)
         {
-            var x = 0;
+            #region Services
+            services.AddScoped<IAuthService,AuthService>();
+            #endregion
+
+            #region Validation
+            services.AddScoped<IValidator<LoginViewModel>,LoginValidation>();
+            services.AddScoped<IValidator<RegisterViewModel>, RegisterValidation>();
+            #endregion
             return services;
         }
     }

@@ -3,6 +3,7 @@ using RoleManagement.Infrastructure;
 using RoleManagement.Extenstions;
 using RoleManagement.Application;
 using RoleManagement.Infrastructure.Context;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,13 @@ builder.Services.AddControllersWithViews();
 builder.Services.InfrastractureStrapping();
 builder.Services.AddApplicationDependencies();
 builder.Services.AddMappingServices();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+        .AddCookie(options =>
+        {
+            options.LoginPath = "/Auth/Login";
+           
+        });
 
 builder.Services.AddDbContext<ApplicationDBContext>(option =>
 option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -38,12 +46,12 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Auth}/{action=Login}/{id?}");
 
 app.Run();
