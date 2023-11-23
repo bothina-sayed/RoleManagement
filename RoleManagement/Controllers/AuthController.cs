@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RoleManagement.Application.Abstractions;
 using RoleManagement.Domain.ViewModels;
 using RoleManagement.Domain.ViewModels.Auth;
+using System.Security.Claims;
 
 namespace RoleManagement.Controllers
 {
@@ -21,18 +24,9 @@ namespace RoleManagement.Controllers
         }
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> Login()
+        public IActionResult Login()
         {
-            //var x = new RegisterViewModel
-            //{
-            //    Email = "asmaa@gmail.com",
-            //    GenderId = 3,
-            //    Password = "P@ssW0rd",
-            //    UnitId = 1,
-            //    PhoneNumber = "01142827378",
-            //    Name = "asmaa"
-            //};
-            //var result = await _authService.Register(x);
+           
             return View();
         }
         [AllowAnonymous]
@@ -49,14 +43,23 @@ namespace RoleManagement.Controllers
                     return View(loginDto);
                 }
 
-                HttpContext.Session.SetString("role", result.Data.Role);
-                HttpContext.Session.SetString("userId", result.Data.Id.ToString());
-                HttpContext.Session.SetString("Name" , result.Data.Name);
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, result.Data.Name),
+                    new Claim(ClaimTypes.Role, result.Data.Role),
+                };
+
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var principal = new ClaimsPrincipal(identity);
+
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
                 return RedirectToAction("Index", "Home");
             }
+
             return View(loginDto);
         }
+
         [AllowAnonymous]
         [HttpGet]
         public IActionResult Register()

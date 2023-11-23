@@ -8,6 +8,7 @@ namespace RoleManagement.Controllers
         [Authorize]
         public IActionResult Index()
         {
+            var x = User.IsInRole("Admin");
             return View();
         }
     }

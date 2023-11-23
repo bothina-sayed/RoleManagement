@@ -16,7 +16,9 @@ namespace RoleManagement.Infrastructure.Context
             : base(options)
         {
         }
-
+        public virtual DbSet<City> Citys { get; set; }
+        public virtual DbSet<Region> Regions { get; set; }
+        public virtual DbSet<District> Districts { get; set; }
         public virtual DbSet<Employee> Employees { get; set; } = null!;
         public virtual DbSet<Permission> Permissions { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;

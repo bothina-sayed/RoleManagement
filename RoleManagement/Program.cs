@@ -17,7 +17,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         .AddCookie(options =>
         {
             options.LoginPath = "/Auth/Login";
-           
         });
 
 builder.Services.AddDbContext<ApplicationDBContext>(option =>
@@ -26,7 +25,9 @@ sqlServerOptionsAction: options => {
     options.EnableRetryOnFailure();
     options.CommandTimeout(10);
 }));
+
 builder.Services.AddDistributedMemoryCache();
+
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(50);

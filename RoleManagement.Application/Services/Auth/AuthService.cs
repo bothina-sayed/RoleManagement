@@ -49,7 +49,7 @@ namespace RoleManagement.Application.Services
                 if (!validationResult.IsValid)
                     ResponseModel<string>
                         .Error(Helpers.ArrangeValidationErrors(validationResult.Errors));
-
+                
                 var key = Cipher.GenerateRandomKey();
                 var password = Cipher.Encrypt(viewModel.Password, key);
                 User user = new()
